@@ -19,10 +19,11 @@ async function runVirtualTryOn(personImageBuffer, garmentImageBuffer) {
     }],
     parameters: {
       sampleCount:       1,
+      baseSteps:         32,  // higher = better quality; 32 is the reference default
       addWatermark:      false,
       personGeneration:  'allow_adult',
       safetySetting:     'block_some',
-      outputOptions:     { mimeType: 'image/jpeg', compressionQuality: 90 },
+      outputOptions:     { mimeType: 'image/png' },  // lossless output preserves colors
     },
   };
 
