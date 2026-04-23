@@ -1,7 +1,18 @@
 node_modules/
 .env
+.env.local
+.env.production
 dist/
 .DS_Store
 *.log
 .claude/
 skills-lock.json
+.vercel
+
+# Secrets
+**/gcp-service-account.json
+
+# Dev artifacts not part of the app
+design.mp4
+Design.mp4
+Survey.jsx
