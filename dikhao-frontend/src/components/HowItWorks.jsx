@@ -60,14 +60,20 @@ export default function HowItWorks() {
           </div>
 
           {/* Video */}
-          <div className="order-1 lg:order-2 flex justify-center">
-            <div className="relative w-full max-w-xs sm:max-w-sm">
+          <div className="order-1 lg:order-2">
+            <div className="relative w-full">
               {/* Glow behind */}
-              <div className="absolute inset-0 bg-brand-purple/15 rounded-3xl blur-2xl scale-95 translate-y-4" />
+              <div className="absolute inset-0 bg-brand-purple/15 rounded-2xl blur-2xl scale-95 translate-y-4" />
 
-              {/* Phone-style frame */}
-              <div className="relative bg-brand-navy rounded-3xl p-2 shadow-2xl">
-                <div className="bg-black rounded-2xl overflow-hidden aspect-[9/16]">
+              {/* Screen-style frame */}
+              <div className="relative bg-brand-navy rounded-2xl p-2 shadow-2xl">
+                {/* Fake browser bar */}
+                <div className="flex items-center gap-1.5 px-3 py-2 mb-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
+                </div>
+                <div className="bg-black rounded-xl overflow-hidden aspect-video">
                   <video
                     src="/design.mp4"
                     autoPlay
