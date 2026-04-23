@@ -3,7 +3,7 @@ import WaitlistForm from './WaitlistForm';
 import OtpVerify from './OtpVerify';
 import SuccessScreen from './SuccessScreen';
 
-export default function HeroSection({ step, mobile, onOtpSent, onVerified, onBack }) {
+export default function HeroSection({ step, mobile, onOtpSent, onVerified, onBack, onTakeSurvey }) {
   const { t } = useTranslation();
 
   return (
@@ -65,7 +65,7 @@ export default function HeroSection({ step, mobile, onOtpSent, onVerified, onBac
                 <OtpVerify mobile={mobile} onSuccess={onVerified} onBack={onBack} />
               )}
               {step === 'success' && (
-                <SuccessScreen mobile={mobile} />
+                <SuccessScreen mobile={mobile} onTakeSurvey={onTakeSurvey} />
               )}
             </div>
           </div>

@@ -4,15 +4,19 @@ import HeroSection from './components/HeroSection';
 import HowItWorks from './components/HowItWorks';
 import PricingSection from './components/PricingSection';
 import Footer from './components/Footer';
+import Survey from './components/Survey';
 
 export default function App() {
-  const [step, setStep] = useState('form'); // 'form' | 'otp' | 'success'
+  const [step, setStep] = useState('form'); // 'form' | 'success'
   const [mobile, setMobile] = useState('');
+  const [showSurvey, setShowSurvey] = useState(false);
 
   const handleOtpSent = (mob) => {
     setMobile(mob);
     setStep('success');
   };
+
+  if (showSurvey) return <Survey />;
 
   return (
     <>
@@ -23,6 +27,7 @@ export default function App() {
         onOtpSent={handleOtpSent}
         onVerified={() => setStep('success')}
         onBack={() => setStep('form')}
+        onTakeSurvey={() => setShowSurvey(true)}
       />
       <HowItWorks />
       <PricingSection />
