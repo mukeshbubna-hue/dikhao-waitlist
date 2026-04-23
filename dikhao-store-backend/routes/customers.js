@@ -7,16 +7,31 @@ const requireAuth = require('../middleware/auth');
 
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 12 * 1024 * 1024 } });
 
-// POST /api/customers  multipart: { name, mobile, photoFile }
+// POST /api/customers  multipart: { name, mobile, photoFile? }
+// Photo is optional for returning customers — their existing photo is reused.
 router.post('/', requireAuth, upload.single('photoFile'), async (req, res) => {
   const { name, mobile } = req.body;
   if (!name || !mobile) return res.status(400).json({ error: 'Name and mobile required.' });
-  if (!req.file) return res.status(400).json({ error: 'Photo required.' });
+
+  const { data: existing } = await supabase
+    .from('customers')
+    .select('*')
+    .eq('store_id', req.store.id)
+    .eq('mobile', mobile)
+    .single();
+
+  if (!existing && !req.file) {
+    return res.status(400).json({ error: 'Customer photo required for new customers.' });
+  }
 
   try {
-    const photo_url = await uploadToPermanent(req.file.buffer, req.store.id, req.file.mimetype);
+    let photo_url = existing?.photo_url;
 
-    // Upsert customer (update if mobile already exists for this store)
+    if (req.file) {
+      // New photo uploaded — replace stored photo
+      photo_url = await uploadToPermanent(req.file.buffer, req.store.id, req.file.mimetype);
+    }
+
     const { data, error } = await supabase
       .from('customers')
       .upsert(

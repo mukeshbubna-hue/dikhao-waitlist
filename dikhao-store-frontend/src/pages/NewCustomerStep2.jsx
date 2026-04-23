@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PhotoUploadBox } from '../components/PhotoUploadBox';
+import { ExistingPhotoBox } from '../components/ExistingPhotoBox';
 import { BilingualButton } from '../components/BilingualButton';
 import { upsertCustomer } from '../api/customers';
 import { startTryOn } from '../api/tryon';
@@ -22,6 +23,8 @@ export default function NewCustomerStep2() {
   const customer = state?.customer;
   const existing = state?.existing;
 
+  const hasExistingPhoto = !!existing?.photo_url;
+
   const [personFile,  setPersonFile]  = useState(null);
   const [shirtFile,   setShirtFile]   = useState(null);
   const [trouserFile, setTrouserFile] = useState(null);
@@ -30,16 +33,19 @@ export default function NewCustomerStep2() {
 
   if (!customer) { navigate('/dashboard/customer/new', { replace: true }); return null; }
 
-  const canSubmit = personFile && (shirtFile || trouserFile) && !loading;
+  // Customer photo step is satisfied either by a newly uploaded file
+  // or by an existing stored photo we'll reuse.
+  const personReady = personFile || hasExistingPhoto;
+  const canSubmit = personReady && (shirtFile || trouserFile) && !loading;
 
   const handleSubmit = async () => {
     setLoading(true); setError('');
     try {
-      // 1. Upsert customer (uploads person photo)
+      // 1. Upsert customer — photo is optional if we already have one
       const { data: custRes } = await upsertCustomer({
         name: customer.name,
         mobile: customer.mobile,
-        photoFile: personFile,
+        photoFile: personFile, // null = reuse existing on backend
       });
 
       // 2. Start try-on session
@@ -71,13 +77,23 @@ export default function NewCustomerStep2() {
       <p className="text-white/50 text-xs mb-6">For <span className="text-white">{customer.name}</span> · +91 {customer.mobile}</p>
 
       <div className="space-y-3 mb-6">
-        <PhotoUploadBox
-          type="person"
-          label={t('photos.customerPhoto')}
-          labelHi={t('photos.customerSub')}
-          required
-          onValidFile={setPersonFile}
-        />
+        {hasExistingPhoto ? (
+          <ExistingPhotoBox
+            photoUrl={existing.photo_url}
+            label={t('photos.customerPhoto')}
+            labelHi={t('photos.customerSub')}
+            onValidFile={setPersonFile}
+          />
+        ) : (
+          <PhotoUploadBox
+            type="person"
+            label={t('photos.customerPhoto')}
+            labelHi={t('photos.customerSub')}
+            required
+            onValidFile={setPersonFile}
+          />
+        )}
+
         <div className="grid grid-cols-2 gap-3">
           <PhotoUploadBox
             type="cloth"

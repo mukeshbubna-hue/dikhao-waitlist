@@ -4,7 +4,7 @@ export function upsertCustomer({ name, mobile, photoFile }) {
   const form = new FormData();
   form.append('name', name);
   form.append('mobile', mobile);
-  form.append('photoFile', photoFile);
+  if (photoFile) form.append('photoFile', photoFile);
   return api.post('/api/customers', form, { headers: { 'Content-Type': 'multipart/form-data' } });
 }
 
