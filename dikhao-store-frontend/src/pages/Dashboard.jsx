@@ -31,12 +31,9 @@ export default function Dashboard() {
     } else if (s.status === 'processing' || s.status === 'pending') {
       navigate(`/dashboard/tryon/${s.id}`);
     } else {
-      // failed | photo_error → take them back to photo upload with customer pre-filled
-      navigate('/dashboard/customer/new/photos', {
-        state: {
-          customer: { name: s.customers?.name, mobile: s.customers?.mobile },
-          existing: s.customers,
-        },
+      // failed | photo_error → back to Step 1 with mobile prefilled so the saved photo auto-loads
+      navigate('/dashboard/customer/new', {
+        state: { prefillMobile: s.customers?.mobile },
       });
     }
   };

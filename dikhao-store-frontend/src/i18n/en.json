@@ -46,7 +46,7 @@
   "newCustomer.customerName": "Customer name",
   "newCustomer.mobile": "Mobile number",
   "newCustomer.mobileHint": "Try-on result will be WhatsApp'd to this number",
-  "newCustomer.next": "Next — Upload photos →",
+  "newCustomer.next": "Next — Upload clothes →",
   "newCustomer.existingNotice": "Existing customer — photo will be updated",
 
   "photos.customerPhoto": "Customer photo",

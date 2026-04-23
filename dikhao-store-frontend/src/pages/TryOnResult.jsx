@@ -73,7 +73,7 @@ export default function TryOnResult() {
           </div>
 
           <div className="grid grid-cols-2 gap-3 mb-4">
-            <button onClick={() => navigate('/dashboard/customer/new/photos', { state: { customer, existing: customer } })}
+            <button onClick={() => navigate('/dashboard/customer/new/clothes', { state: { customer } })}
               className="py-2.5 rounded-xl border border-white/15 text-white text-xs font-semibold hover:bg-white/5">
               {t('result.tryAnother')}
             </button>

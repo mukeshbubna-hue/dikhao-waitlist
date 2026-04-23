@@ -24,7 +24,8 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="customer/new"        element={<NewCustomerStep1 />} />
-          <Route path="customer/new/photos" element={<NewCustomerStep2 />} />
+          <Route path="customer/new/clothes" element={<NewCustomerStep2 />} />
+          <Route path="customer/new/photos"  element={<NewCustomerStep2 />} />
           <Route path="tryon/:sessionId"             element={<Processing />} />
           <Route path="tryon/:sessionId/result"      element={<TryOnResult />} />
           <Route path="tryon/:sessionId/photo-error" element={<PhotoError />} />
