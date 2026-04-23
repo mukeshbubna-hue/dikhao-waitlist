@@ -1,10 +1,10 @@
 const axios = require('axios');
 const FormData = require('form-data');
 
-// PhotoRoom sandbox rejects some hex values. Keep these to ones it reliably accepts.
+// PhotoRoom requires hex with # prefix, or named colors like "white".
 const BG_COLORS = {
-  white: 'FFFFFF',
-  grey:  'FFFFFF', // fall back to white for now; PhotoRoom sandbox doesn't accept f0f0f0
+  white: '#FFFFFF',
+  grey:  '#F0F0F0',
 };
 
 async function removeBackground(imageBuffer, outputType = 'white') {
