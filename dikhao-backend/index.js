@@ -4,7 +4,9 @@ const cors = require('cors');
 const waitlistRoutes = require('./routes/waitlist');
 
 const app = express();
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors({
+  origin: (origin, cb) => cb(null, true)
+}));
 app.use(express.json());
 app.use('/api/waitlist', waitlistRoutes);
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
