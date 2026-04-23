@@ -71,9 +71,12 @@ router.get('/status/:id', requireAuth, async (req, res) => {
     .single();
   if (error || !data) return res.status(404).json({ error: 'Not found' });
 
-  const shareUrl = data.share_token
-    ? `${process.env.FRONTEND_URL || ''}/view/${data.share_token}`
-    : null;
+  // /view/:token is served directly by the backend (fast-loading plain HTML, no SPA).
+  // Build an absolute URL from the Railway public domain (or whatever's configured).
+  const base = process.env.BACKEND_PUBLIC_URL
+    || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : '')
+    || `${req.protocol}://${req.get('host')}`;
+  const shareUrl = data.share_token ? `${base}/view/${data.share_token}` : null;
 
   res.json({
     status:     data.status,
