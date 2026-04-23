@@ -17,7 +17,7 @@
   "form.state": "राज्य",
   "form.city": "शहर",
   "form.selectState": "राज्य चुनें",
-  "form.sendOtp": "व्हाट्सऐप पर OTP भेजें",
+  "form.sendOtp": "सबमिट करें",
   "form.privacy": "कोई स्पैम नहीं। केवल लॉन्च अपडेट।",
   "otp.title": "नंबर वेरीफाई करें",
   "otp.sub": "{mobile} पर WhatsApp से भेजा गया 6-अंकों का OTP डालें।",

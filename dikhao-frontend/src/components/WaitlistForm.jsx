@@ -120,7 +120,7 @@ export default function WaitlistForm({ onOtpSent }) {
         disabled={loading}
         className="w-full py-3 rounded-xl bg-brand-gold text-brand-navy font-bold text-sm hover:bg-yellow-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-1"
       >
-        {loading ? 'Sending…' : t('form.sendOtp')}
+        {loading ? 'Submitting…' : t('form.sendOtp')}
       </button>
 
       <p className="text-white/35 text-xs text-center">{t('form.privacy')}</p>

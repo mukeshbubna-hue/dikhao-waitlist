@@ -17,7 +17,7 @@
   "form.state": "State",
   "form.city": "City",
   "form.selectState": "Select state",
-  "form.sendOtp": "Send OTP on WhatsApp",
+  "form.sendOtp": "Submit",
   "form.privacy": "No spam. Only launch updates for your city.",
   "otp.title": "Verify your number",
   "otp.sub": "Enter the 6-digit OTP sent to {mobile} via WhatsApp.",
