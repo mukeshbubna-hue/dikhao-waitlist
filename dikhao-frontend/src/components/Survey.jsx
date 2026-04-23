@@ -103,9 +103,11 @@ function QCard({ num, en, hi, children }) {
   );
 }
 
-export default function Survey() {
+export default function Survey({ prefill = {} }) {
   const [form, setForm] = useState({
-    name:'', whatsapp:'', city:'',
+    name: prefill.name || '',
+    whatsapp: prefill.whatsapp || '',
+    city: prefill.city || '',
     q1:'', q2:null, q3:'', q4:'', q5:'',
     q6:null, q7:'', q8:'', q9:''
   });
@@ -192,31 +194,8 @@ export default function Survey() {
           <div style={{ fontSize:13, color:'#8a7f75', marginTop:4, lineHeight:1.5 }}>
             अपनी दुकान के बारे में बताएं — हम आपके लिए सही चीज़ बनाएंगे। सिर्फ 3 मिनट।
           </div>
-          <div style={{ marginTop:14, display:'flex', flexDirection:'column', gap:8 }}>
-            <input placeholder="Your name / आपका नाम" value={form.name}
-              onChange={e => set('name', e.target.value)}
-              style={{
-                padding:'10px 12px', border:'1.5px solid #e2ddd8', borderRadius:8,
-                fontSize:13, fontFamily:"'Noto Sans', sans-serif", outline:'none',
-                background:'#faf7f4', color:'#1a1612'
-              }} />
-            <input placeholder="WhatsApp number / व्हाट्सऐप नंबर" value={form.whatsapp}
-              onChange={e => set('whatsapp', e.target.value)}
-              inputMode="numeric"
-              style={{
-                padding:'10px 12px', border:'1.5px solid #e2ddd8', borderRadius:8,
-                fontSize:13, fontFamily:"'Noto Sans', sans-serif", outline:'none',
-                background:'#faf7f4', color:'#1a1612'
-              }} />
-            <select value={form.city} onChange={e => set('city', e.target.value)}
-              style={{
-                padding:'10px 12px', border:'1.5px solid #e2ddd8', borderRadius:8,
-                fontSize:13, fontFamily:"'Noto Sans', sans-serif", outline:'none',
-                background:'#faf7f4', color: form.city ? '#1a1612' : '#b0a89e'
-              }}>
-              <option value="">Select city / शहर चुनें</option>
-              {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+          <div style={{ marginTop:12, padding:'8px 12px', background:'#f3f0ec', borderRadius:8, fontSize:13, color:'#5a5048' }}>
+            Filling for <strong>{form.name}</strong> · +91 {form.whatsapp} · {form.city}
           </div>
         </div>
 

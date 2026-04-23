@@ -9,14 +9,24 @@ import Survey from './components/Survey';
 export default function App() {
   const [step, setStep] = useState('form'); // 'form' | 'success'
   const [mobile, setMobile] = useState('');
+  const [waitlistData, setWaitlistData] = useState({});
   const [showSurvey, setShowSurvey] = useState(false);
 
-  const handleOtpSent = (mob) => {
-    setMobile(mob);
+  const handleOtpSent = (formData) => {
+    setMobile(formData.mobile);
+    setWaitlistData(formData);
     setStep('success');
   };
 
-  if (showSurvey) return <Survey />;
+  if (showSurvey) return (
+    <Survey
+      prefill={{
+        name: waitlistData.owner_name || '',
+        whatsapp: waitlistData.mobile || '',
+        city: waitlistData.city || '',
+      }}
+    />
+  );
 
   return (
     <>

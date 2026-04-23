@@ -25,7 +25,7 @@ export default function WaitlistForm({ onOtpSent }) {
     setError('');
     try {
       await sendOtp(form);
-      onOtpSent(form.mobile);
+      onOtpSent(form);
     } catch (err) {
       setError(err.response?.data?.error || 'Something went wrong. Please try again.');
     } finally {
