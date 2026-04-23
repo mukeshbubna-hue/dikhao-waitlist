@@ -12,7 +12,9 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-brand-bg py-20 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+
+        {/* Header */}
+        <div className="text-center mb-14">
           <p className="text-brand-purple text-sm font-semibold uppercase tracking-wider mb-2">
             {t('how.eyebrow')}
           </p>
@@ -24,29 +26,67 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-8">
-          {steps.map(({ key, icon, num }) => (
-            <div key={key} className="relative">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-brand-navy/5 h-full">
-                <div className="flex items-start justify-between mb-4">
-                  <span className="text-3xl">{icon}</span>
-                  <span className="text-brand-purple/25 font-heading font-bold text-4xl leading-none">{num}</span>
+        {/* Two-column: steps left, video right */}
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          {/* Steps */}
+          <div className="space-y-6 order-2 lg:order-1">
+            {steps.map(({ key, icon, num }, idx) => (
+              <div key={key} className="flex gap-5 items-start">
+                {/* Number + connector */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-white border border-brand-navy/10 shadow-sm flex items-center justify-center text-xl">
+                    {icon}
+                  </div>
+                  {idx < steps.length - 1 && (
+                    <div className="w-px h-8 bg-brand-navy/10 mt-2" />
+                  )}
                 </div>
-                <h3 className="font-heading font-semibold text-brand-navy text-lg mb-2">
-                  {t(`how.${key}.title`)}
-                </h3>
-                <p className="text-brand-navy/60 text-sm leading-relaxed">
-                  {t(`how.${key}.desc`)}
-                </p>
+
+                {/* Text */}
+                <div className="pt-1.5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-brand-purple/40 font-heading font-bold text-xs tracking-widest">{num}</span>
+                    <h3 className="font-heading font-semibold text-brand-navy text-base">
+                      {t(`how.${key}.title`)}
+                    </h3>
+                  </div>
+                  <p className="text-brand-navy/55 text-sm leading-relaxed">
+                    {t(`how.${key}.desc`)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Video */}
+          <div className="order-1 lg:order-2 flex justify-center">
+            <div className="relative w-full max-w-xs sm:max-w-sm">
+              {/* Glow behind */}
+              <div className="absolute inset-0 bg-brand-purple/15 rounded-3xl blur-2xl scale-95 translate-y-4" />
+
+              {/* Phone-style frame */}
+              <div className="relative bg-brand-navy rounded-3xl p-2 shadow-2xl">
+                <div className="bg-black rounded-2xl overflow-hidden aspect-[9/16]">
+                  <video
+                    src="/design.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
-              {num !== '03' && (
-                <div className="hidden sm:block absolute top-1/2 -right-4 w-8 text-center text-brand-purple/30 text-xl">
-                  →
-                </div>
-              )}
+              {/* Floating badge */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white rounded-full px-4 py-2 shadow-lg border border-brand-navy/8 flex items-center gap-2 whitespace-nowrap">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-brand-navy text-xs font-semibold">20 seconds · on WhatsApp</span>
+              </div>
             </div>
-          ))}
+          </div>
+
         </div>
       </div>
     </section>
