@@ -12,7 +12,7 @@ export default function HowItWorks() {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) videoRef.current.playbackRate = 0.5;
+    if (videoRef.current) videoRef.current.playbackRate = 0.3;
   }, []);
 
   return (
