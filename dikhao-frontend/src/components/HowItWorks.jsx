@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const steps = [
@@ -8,6 +9,11 @@ const steps = [
 
 export default function HowItWorks() {
   const { t } = useTranslation();
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.playbackRate = 0.5;
+  }, []);
 
   return (
     <section id="how-it-works" className="bg-brand-bg py-20 px-4 sm:px-6">
@@ -75,6 +81,7 @@ export default function HowItWorks() {
                 </div>
                 <div className="bg-black rounded-xl overflow-hidden aspect-video">
                   <video
+                    ref={videoRef}
                     src="/design.mp4"
                     autoPlay
                     loop
