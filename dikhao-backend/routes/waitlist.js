@@ -18,13 +18,10 @@ router.post('/send-otp', async (req, res) => {
     return res.status(400).json({ error: 'Enter a valid 10-digit mobile number.' });
   }
 
-  const otp = generateOtp();
-  const otp_expires_at = new Date(Date.now() + 10 * 60 * 1000).toISOString();
-
   const { error: dbError } = await supabase
     .from('waitlist')
     .upsert(
-      { store_name, owner_name, mobile, state, city, otp, otp_expires_at, verified: false },
+      { store_name, owner_name, mobile, state, city, verified: true },
       { onConflict: 'mobile' }
     );
 
@@ -33,13 +30,7 @@ router.post('/send-otp', async (req, res) => {
     return res.status(500).json({ error: 'Database error. Please try again.' });
   }
 
-  try {
-    await sendOtp(mobile, otp);
-    return res.json({ success: true, message: 'OTP sent on WhatsApp.' });
-  } catch (whatsappError) {
-    console.error('WhatsApp error:', whatsappError.message);
-    return res.status(500).json({ error: 'Could not send WhatsApp OTP. Please try again.' });
-  }
+  return res.json({ success: true });
 });
 
 // POST /api/waitlist/verify-otp

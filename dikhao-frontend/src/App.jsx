@@ -11,7 +11,7 @@ export default function App() {
 
   const handleOtpSent = (mob) => {
     setMobile(mob);
-    setStep('otp');
+    setStep('success');
   };
 
   return (
