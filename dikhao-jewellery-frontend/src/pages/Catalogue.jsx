@@ -1,9 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react'; // useMemo still used for activeBand
 import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import { listProducts } from '../api/catalogue';
 import { startJewelleryTryOn } from '../api/jewelleryTryon';
 import { getCustomer } from '../api/customers';
-import { getActiveShortlist, markShortlistSent, buildWhatsAppUrl } from '../api/shortlists';
+import { getActiveShortlist, markShortlistSent, getShortlistWhatsApp } from '../api/shortlists';
 
 const CATEGORIES = [
   { id: null,       label: 'All' },
@@ -105,11 +105,14 @@ export default function Catalogue() {
 
   const activeBand = useMemo(() => BANDS.find(b => b.id === band), [band]);
 
-  // Build wa.me URL client-side so <a target=_blank> works on iOS (no async popup block).
-  const waUrl = useMemo(
-    () => buildWhatsAppUrl({ shortlistId, customer, store, apiBase: API_BASE }),
-    [shortlistId, customer, store]
-  );
+  // Pre-fetch the wa.me URL from the backend (single source of truth for the
+  // message template). Refetch when shortlistId changes. The <a href> renders
+  // with this URL so iOS treats the tap as a direct navigation — no popup block.
+  const [waUrl, setWaUrl] = useState(null);
+  useEffect(() => {
+    if (!shortlistId) return setWaUrl(null);
+    getShortlistWhatsApp(shortlistId).then(res => setWaUrl(res.data.waUrl)).catch(() => setWaUrl(null));
+  }, [shortlistId]);
 
   const onTryOn = async (p) => {
     if (startingFor) return;

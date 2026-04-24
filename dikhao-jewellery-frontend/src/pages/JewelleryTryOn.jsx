@@ -1,9 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import { getJewelleryTryOn } from '../api/jewelleryTryon';
-import { addToShortlist, getActiveShortlist, markShortlistSent, buildWhatsAppUrl } from '../api/shortlists';
-
-const API_BASE = import.meta.env.VITE_API_URL;
+import { addToShortlist, getActiveShortlist, markShortlistSent, getShortlistWhatsApp } from '../api/shortlists';
 
 const POLL_MS = 2500;
 const EXPECTED_SEC = 30;
@@ -44,10 +42,13 @@ export default function JewelleryTryOn() {
     }).catch(() => {});
   }, [customer?.id]);
 
-  const waUrl = useMemo(
-    () => buildWhatsAppUrl({ shortlistId, customer, store, apiBase: API_BASE }),
-    [shortlistId, customer, store]
-  );
+  // Pre-fetch the wa.me URL from the backend when shortlistId is known, so the
+  // <a href> is ready before the user taps Send (iOS popup-block safe).
+  const [waUrl, setWaUrl] = useState(null);
+  useEffect(() => {
+    if (!shortlistId) return setWaUrl(null);
+    getShortlistWhatsApp(shortlistId).then(res => setWaUrl(res.data.waUrl)).catch(() => setWaUrl(null));
+  }, [shortlistId]);
 
   const onSendClick = () => {
     if (shortlistId) {
