@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+.env.production
+gcp-service-account.json
+*.log
+.DS_Store
+test-output/
+.vercel
