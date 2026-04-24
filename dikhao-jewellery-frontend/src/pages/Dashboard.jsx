@@ -26,12 +26,14 @@ function timeAgo(ts) {
 
 export default function Dashboard() {
   const { t } = useTranslation();
-  const { store } = useOutletContext();
+  const { store, refreshStore } = useOutletContext();
   const navigate = useNavigate();
   const [plan, setPlan] = useState(null);
   const [today, setToday] = useState([]);
 
   useEffect(() => {
+    // Refresh store each Dashboard mount so customers_used reflects the latest DB value
+    refreshStore?.();
     checkPlan().then(r => setPlan(r.data)).catch(() => {});
     todaysJewelleryTryOns().then(r => setToday(r.data.sessions || [])).catch(() => {});
   }, []);
@@ -63,7 +65,7 @@ export default function Dashboard() {
       />
 
       {/* CTA cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
         <Link
           to="/dashboard/customer/new"
           className="block p-6 border border-plum bg-plum text-ivory hover:bg-plum-dim transition-colors"
@@ -83,6 +85,16 @@ export default function Dashboard() {
           </div>
           <p className="text-plum font-body text-[15px]">Manage catalogue</p>
           <p className="text-plum/60 text-xs mt-0.5">संग्रह</p>
+        </Link>
+        <Link
+          to="/dashboard/plan"
+          className="block p-6 border border-rose-gold bg-rose-gold/10 hover:bg-rose-gold/20 transition-colors"
+        >
+          <div className="w-10 h-10 rounded-full bg-rose-gold/40 flex items-center justify-center mb-4">
+            <span className="text-xl">💳</span>
+          </div>
+          <p className="text-plum font-body text-[15px]">Pay & upgrade</p>
+          <p className="text-plum/60 text-xs mt-0.5">प्लान अपग्रेड</p>
         </Link>
       </div>
 

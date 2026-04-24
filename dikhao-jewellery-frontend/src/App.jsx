@@ -8,6 +8,7 @@ import Catalogue from './pages/Catalogue';
 import CatalogueAdmin from './pages/CatalogueAdmin';
 import JewelleryTryOn from './pages/JewelleryTryOn';
 import Customers from './pages/Customers';
+import Plans from './pages/Plans';
 import Processing from './pages/Processing';
 import TryOnResult from './pages/TryOnResult';
 import PhotoError from './pages/PhotoError';
@@ -36,7 +37,7 @@ export default function App() {
           <Route path="tryon/:sessionId/failed"      element={<SystemError />} />
           <Route path="customers" element={<Customers />} />
           <Route path="history"   element={<Placeholder title="Try-on History" subtitle="इतिहास" />} />
-          <Route path="plan"      element={<Placeholder title="Plan & Billing" subtitle="प्लान और पेमेंट" />} />
+          <Route path="plan"      element={<Plans />} />
           <Route path="settings"  element={<Placeholder title="Settings" subtitle="सेटिंग" />} />
         </Route>
 

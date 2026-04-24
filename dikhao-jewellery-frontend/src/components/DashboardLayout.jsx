@@ -5,7 +5,7 @@ import { BottomNav } from './BottomNav';
 import { useEffect } from 'react';
 
 export function DashboardLayout() {
-  const { store, loading, logout, authed } = useAuth();
+  const { store, loading, logout, refreshStore, authed } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function DashboardLayout() {
     <div className="min-h-screen bg-ivory flex">
       <Sidebar store={store} onLogout={logout} />
       <main className="flex-1 pb-20 sm:pb-0 min-w-0">
-        <Outlet context={{ store, logout }} />
+        <Outlet context={{ store, logout, refreshStore }} />
       </main>
       <BottomNav />
     </div>

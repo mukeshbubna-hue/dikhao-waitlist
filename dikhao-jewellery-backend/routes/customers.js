@@ -89,7 +89,20 @@ router.post('/', requireAuth, upload.single('photoFile'), async (req, res) => {
 
     if (error) return res.status(500).json({ error: 'Could not save customer.' });
 
-    console.log(`[customers.post] done in ${Date.now() - t0}ms, id=${data.id}`);
+    // Increment store.customers_used only for NEW customers (not returning).
+    // `existing` was queried at the top of the handler BEFORE the upsert.
+    if (!existing) {
+      try {
+        const { data: storeRow } = await supabase
+          .from('stores').select('customers_used').eq('id', req.store.id).single();
+        const next = (storeRow?.customers_used || 0) + 1;
+        await supabase.from('stores').update({ customers_used: next }).eq('id', req.store.id);
+      } catch (err) {
+        console.error(`[customers.post] counter increment failed:`, err.message);
+      }
+    }
+
+    console.log(`[customers.post] done in ${Date.now() - t0}ms, id=${data.id}, newCustomer=${!existing}`);
     res.json({ customer: data });
 
     // Async: dress in kurta + clean the bg so future try-ons use a standardised photo.
