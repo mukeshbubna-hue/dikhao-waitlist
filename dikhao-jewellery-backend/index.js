@@ -9,6 +9,7 @@ const catalogueRoutes      = require('./routes/catalogue');
 const jewelleryTryonRoutes = require('./routes/jewelleryTryon');
 const shortlistsRoutes     = require('./routes/shortlists');
 const photoRoutes          = require('./routes/photo');
+const { startSweeper }     = require('./services/tryonSweeper');
 const billingRoutes   = require('./routes/billing');
 const planRoutes      = require('./routes/plan');
 const internalRoutes  = require('./routes/internal');
@@ -35,4 +36,8 @@ app.use('/api/internal',  internalRoutes);
 app.use('/view',          viewRoutes);
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Dikhao store backend running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Dikhao store backend running on port ${PORT}`);
+  // Start the orphan-session sweeper so stuck try-ons get cleaned up every 30s.
+  startSweeper();
+});
