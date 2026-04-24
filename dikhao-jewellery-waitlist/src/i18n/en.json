@@ -1,0 +1,65 @@
+{
+  "nav.howItWorks": "How it works",
+  "nav.waitlist": "Join waitlist",
+
+  "hero.eyebrow": "For jewellery retail · For the stores that hold the moments",
+  "hero.wordmark": "Dikhao",
+  "hero.tagline": "Try. Shortlist. Love.",
+  "hero.sub": "Your customer tries every piece on her own photo. Shortlists her favourites. Shares them on WhatsApp. Her family decides. She comes back to buy.",
+  "hero.cta": "Join the waitlist",
+
+  "section1.eyebrow": "The moment",
+  "section1.title": "She'll pick up seven pieces. She'll try two.",
+  "section1.sub": "The rest stay in the tray — unseen, un-tried, undecided. Dikhao gives her a mirror that never puts anything back.",
+
+  "section2.eyebrow": "How it works",
+  "section2.title": "Three steps. No learning curve.",
+
+  "step1.label": "One",
+  "step1.title": "Seat your customer. Take one bust photo.",
+  "step1.desc": "Forty seconds, any tablet. She keeps this photo — the app reuses it for every try-on, every visit.",
+
+  "step2.label": "Two",
+  "step2.title": "Let her browse your catalogue.",
+  "step2.desc": "Your full collection — tagged, searchable, sortable by price — on the tablet in front of her. She taps what she likes.",
+
+  "step3.label": "Three",
+  "step3.title": "She sees herself wearing it. Instantly.",
+  "step3.desc": "AI places the piece on her own face and neck in under fifteen seconds. She shortlists favourites. Her shortlist goes to her WhatsApp.",
+
+  "showcase.eyebrow": "Six categories at launch",
+  "showcase.title": "What she can try, starting day one.",
+  "showcase.sub": "We begin with bust-shot jewellery — the pieces she'll linger on. Bangles, rings, and anklets follow in phase two.",
+
+  "showcase.c1": "Necklace",
+  "showcase.c2": "Earrings",
+  "showcase.c3": "Choker",
+  "showcase.c4": "Pendant",
+  "showcase.c5": "Borla · Maang tikka",
+  "showcase.c6": "Nath · Nose ring",
+
+  "form.eyebrow": "For jewellery stores",
+  "form.title": "Join the Dikhao waitlist.",
+  "form.sub": "We're piloting with 50 jewellery shops across India. Share your details — we'll WhatsApp you the moment a slot opens in your city.",
+  "stats.scarcity": "Only 50 pilot slots — request yours now.",
+  "stats.live": "{{count}} shops already in line · from {{cities}} {{citiesWord}}",
+  "form.storeName": "Store name",
+  "form.ownerName": "Owner's name",
+  "form.mobile": "WhatsApp number",
+  "form.state": "State",
+  "form.city": "City",
+  "form.selectState": "Select state",
+  "form.selectCity": "Select city",
+  "form.cta": "Request pilot access",
+  "form.submitting": "Sending…",
+  "form.successTitle": "You're on the list.",
+  "form.successSub": "We'll WhatsApp you the moment we open a pilot slot in your city.",
+  "form.errorAllFields": "Please fill all fields.",
+  "form.errorMobile": "Please enter a valid 10-digit number.",
+  "form.errorGeneric": "Something went wrong. Please try again.",
+  "form.privacy": "We only use your number to let you know when the pilot opens. Nothing else.",
+
+  "footer.blurb": "A quiet tool for a loud moment — the moment she decides.",
+  "footer.contact": "hello@dikhao.in",
+  "footer.rights": "Made in India ·"
+}

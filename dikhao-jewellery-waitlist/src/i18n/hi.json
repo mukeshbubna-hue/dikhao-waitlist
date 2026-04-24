@@ -1,0 +1,65 @@
+{
+  "nav.howItWorks": "कैसे काम करता है",
+  "nav.waitlist": "वेटलिस्ट जॉइन करें",
+
+  "hero.eyebrow": "जवाहरात की दुकानों के लिए · जहाँ कहानियाँ पूरी होती हैं",
+  "hero.wordmark": "Dikhao",
+  "hero.tagline": "पहनिए। पसंद कीजिए। ले जाइए।",
+  "hero.sub": "आपकी ग्राहक हर piece अपनी ही तस्वीर पर पहन कर देखे। अपनी पसंद शॉर्टलिस्ट करे। WhatsApp पर परिवार को भेजे। परिवार निर्णय ले। और वो ख़रीदने वापस आए।",
+  "hero.cta": "वेटलिस्ट जॉइन करें",
+
+  "section1.eyebrow": "वो पल",
+  "section1.title": "वो सात चीज़ें उठाएगी। दो ही पहनकर देखेगी।",
+  "section1.sub": "बाकी पाँच ट्रे में रह जाती हैं — बिना देखे, बिना पहने, बिना निर्णय के। Dikhao उसे एक ऐसा आईना देता है जो किसी भी चीज़ को वापस नहीं रखता।",
+
+  "section2.eyebrow": "कैसे काम करता है",
+  "section2.title": "तीन कदम। सीखने की ज़रूरत नहीं।",
+
+  "step1.label": "पहला",
+  "step1.title": "ग्राहक को बिठाइए। एक bust photo लीजिए।",
+  "step1.desc": "चालीस सेकंड, कोई भी tablet। यह फ़ोटो सहेज ली जाती है — हर try-on, हर मुलाक़ात पर app इसी को इस्तेमाल करता है।",
+
+  "step2.label": "दूसरा",
+  "step2.title": "उसे आपकी कैटलॉग देखने दीजिए।",
+  "step2.desc": "आपका पूरा कलेक्शन — tagged, search करने लायक़, दाम से sort — उसी tablet पर। जो पसंद आए उस पर tap करे।",
+
+  "step3.label": "तीसरा",
+  "step3.title": "वो पलभर में ख़ुद को पहने हुए देखे।",
+  "step3.desc": "AI पंद्रह सेकंड में उसके चेहरे और गले पर उस piece को बिठा देता है। वो favourites शॉर्टलिस्ट करे। शॉर्टलिस्ट उसके WhatsApp पर पहुँच जाती है।",
+
+  "showcase.eyebrow": "लॉन्च पर छह श्रेणियाँ",
+  "showcase.title": "पहले दिन से वो क्या पहन कर देख सकती है।",
+  "showcase.sub": "हम bust-shot जवाहरात से शुरू कर रहे हैं — जिन पर वो रुकती है। चूड़ियाँ, अंगूठी, पायल दूसरे चरण में।",
+
+  "showcase.c1": "हार",
+  "showcase.c2": "झुमके / Earrings",
+  "showcase.c3": "Choker",
+  "showcase.c4": "Pendant / लटकन",
+  "showcase.c5": "बोरला · मांग टीका",
+  "showcase.c6": "नथ",
+
+  "form.eyebrow": "जवाहरात की दुकानों के लिए",
+  "form.title": "Dikhao वेटलिस्ट में जुड़िए।",
+  "form.sub": "हम पूरे भारत में 50 जवाहरात की दुकानों के साथ pilot कर रहे हैं। विवरण भरिए — आपके शहर में slot खुलते ही हम WhatsApp करेंगे।",
+  "stats.scarcity": "सिर्फ़ 50 pilot slots — अपना अभी बुक करें।",
+  "stats.live": "{{count}} दुकानें line में · {{cities}} शहरों से",
+  "form.storeName": "दुकान का नाम",
+  "form.ownerName": "मालिक का नाम",
+  "form.mobile": "व्हाट्सऐप नंबर",
+  "form.state": "राज्य",
+  "form.city": "शहर",
+  "form.selectState": "राज्य चुनें",
+  "form.selectCity": "शहर चुनें",
+  "form.cta": "Pilot access के लिए request",
+  "form.submitting": "भेजा जा रहा है…",
+  "form.successTitle": "आप लिस्ट में हैं।",
+  "form.successSub": "आपके शहर में pilot खुलते ही हम WhatsApp करेंगे।",
+  "form.errorAllFields": "कृपया सभी fields भरें।",
+  "form.errorMobile": "कृपया सही 10 अंकों का नंबर डालें।",
+  "form.errorGeneric": "कुछ ग़लत हुआ। कृपया दोबारा कोशिश करें।",
+  "form.privacy": "आपका नंबर सिर्फ़ आपको pilot की सूचना देने के लिए — और किसी काम नहीं।",
+
+  "footer.blurb": "एक शांत सा tool — उस ज़ोरदार पल के लिए जब वो निर्णय लेती है।",
+  "footer.contact": "hello@dikhao.in",
+  "footer.rights": "भारत में बना ·"
+}
