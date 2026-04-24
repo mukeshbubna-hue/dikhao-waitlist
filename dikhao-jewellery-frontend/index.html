@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#F4EEE5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Geist:wght@400;500&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet" />
+    <title>Dikhao — Jewellery Store Manager</title>
+    <meta name="description" content="Virtual try-on for Indian jewellery stores. Let her try every piece on her own photo, shortlist her favourites, share on WhatsApp." />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Datafast analytics — queue shim so events fired before script loads are not dropped -->
+    <script id="datafast-queue">
+      window.datafast = window.datafast || function() {
+        window.datafast.q = window.datafast.q || [];
+        window.datafast.q.push(arguments);
+      };
+    </script>
+    <script>
+      // Only load Datafast on the real production domain — skip localhost, Cloudflare
+      // tunnels, and ngrok so dev noise doesn't pollute analytics.
+      (function () {
+        var h = window.location.hostname;
+        if (!h || /localhost|trycloudflare\.com|ngrok(-free)?\.(dev|app)/.test(h)) return;
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://datafa.st/js/script.js';
+        s.setAttribute('data-website-id', 'dfid_AZM7rYfQNVasz5bkrHuOY');
+        s.setAttribute('data-domain', h);
+        document.head.appendChild(s);
+      })();
+    </script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
