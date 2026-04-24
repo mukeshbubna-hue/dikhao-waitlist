@@ -9,6 +9,7 @@ import CatalogueAdmin from './pages/CatalogueAdmin';
 import JewelleryTryOn from './pages/JewelleryTryOn';
 import Customers from './pages/Customers';
 import Plans from './pages/Plans';
+import ShortlistView from './pages/ShortlistView';
 import Processing from './pages/Processing';
 import TryOnResult from './pages/TryOnResult';
 import PhotoError from './pages/PhotoError';
@@ -24,6 +25,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/login"  element={<Login />} />
+        {/* Public shortlist view — no auth. Accessed by family on WhatsApp link. */}
+        <Route path="/view/shortlist/:id" element={<ShortlistView />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />

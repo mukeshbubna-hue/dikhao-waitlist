@@ -197,8 +197,12 @@ router.post('/:id/whatsapp', requireAuth, async (req, res) => {
   const { data: store } = await supabase
     .from('stores').select('store_name').eq('id', req.store.id).single();
 
-  const publicBase = process.env.PUBLIC_BACKEND_URL || `${req.protocol}://${req.get('host')}`;
-  const viewUrl = `${publicBase}/view/shortlist/${shortlist.id}`;
+  // View pages are served by the Vercel frontend (permanent URL, CDN cached)
+  // not the ngrok backend (which blocks external visitors with ERR_NGROK_3004).
+  const viewBase = process.env.PUBLIC_VIEW_BASE
+    || process.env.PUBLIC_BACKEND_URL
+    || `${req.protocol}://${req.get('host')}`;
+  const viewUrl = `${viewBase}/view/shortlist/${shortlist.id}`;
 
   const storeName = store?.store_name || 'our store';
   const customerName = customer?.name || 'you';
