@@ -23,5 +23,10 @@ export const PHOTO_ERRORS = {
     en: 'Customer must be fully visible from head to feet. Step back and retake.',
     hi: 'ग्राहक का पूरा शरीर दिखना चाहिए। पीछे हटें और दोबारा लें।',
     icon: '🧍'
+  },
+  not_a_person: {
+    en: 'This image is not a customer photo. Take a bust shot of the customer.',
+    hi: 'यह ग्राहक की फ़ोटो नहीं है। कृपया ग्राहक की कंधे तक की फ़ोटो लें।',
+    icon: '👤'
   }
 };

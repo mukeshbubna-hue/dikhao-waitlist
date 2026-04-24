@@ -136,7 +136,9 @@ async function tryOnAccessory(personBuffer, productBuffer, category, personMime 
 
   const response = await axios.post(endpoint(), body, {
     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    timeout: 60_000,  // shorter — we'd rather retry than wait 2 min on a stuck call
+    // 28s per attempt × 2 attempts = 56s max — fits inside the pipeline's
+    // 60s deadline with 4s headroom for image fetch + upload + DB writes.
+    timeout: 28_000,
     maxBodyLength: 50 * 1024 * 1024,
   });
 

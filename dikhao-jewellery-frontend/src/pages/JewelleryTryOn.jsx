@@ -80,9 +80,13 @@ export default function JewelleryTryOn() {
           return;
         }
         if (data.status === 'failed' || data.status === 'photo_error') {
-          setError(data.status === 'photo_error'
-            ? 'Could not read the customer photo clearly. Take a fresh bust shot and try again.'
-            : 'Something went wrong with the try-on. Please try another piece.');
+          if (data.status === 'photo_error') {
+            setError('Could not read the customer photo clearly. Take a fresh bust shot and try again.');
+          } else if (elapsed > 55) {
+            setError('Try-on took longer than expected. Please try the same piece again, or pick another.');
+          } else {
+            setError('Something went wrong with the try-on. Please try another piece.');
+          }
           window.datafast?.(data.status === 'photo_error' ? "tryon_photo_error" : "tryon_failed");
           return;
         }
@@ -97,7 +101,9 @@ export default function JewelleryTryOn() {
 
   const elapsed = Math.floor((now - startedAt) / 1000);
   const pct = Math.min(95, Math.round((elapsed / EXPECTED_SEC) * 100));
-  const takingLonger = elapsed > 90 && status !== 'done';
+  // Backend pipeline has a hard 60s deadline; show a gentle nudge at 45s so the
+  // user knows the system hasn't hung, but keep the copy calm.
+  const takingLonger = elapsed > 45 && status !== 'done';
 
   const backToCatalogue = () => {
     if (!customer) return navigate('/dashboard');

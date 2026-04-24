@@ -4,6 +4,7 @@ import { checkPhotoQuality } from '../hooks/usePhotoQuality';
 import { PHOTO_ERRORS } from '../constants/photoErrors';
 import { PhotoTipsSheet } from './PhotoTipsSheet';
 import { CameraCapture } from './CameraCapture';
+import { verifyPersonPhoto } from '../api/photo';
 
 const isMobile = typeof navigator !== 'undefined' &&
   /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -61,18 +62,38 @@ export function PhotoUploadBox({ type = 'person', label, labelHi, required, onVa
     const file = await compressImage(rawFile);
     console.log(`[photo] original=${rawFile.size}B → compressed=${file.size}B`);
 
+    // 1. Basic local quality checks (brightness, blur, resolution) — fast.
     const result = await checkPhotoQuality(file, type);
-    if (result.pass) {
-      setState('passed');
-      setError(null);
-      onValidFile?.(file);
-      window.datafast?.("customer_photo_accepted");
-    } else {
+    if (!result.pass) {
       setState('failed');
       setError(result.reason);
       onValidFile?.(null);
       window.datafast?.("customer_photo_rejected");
+      return;
     }
+
+    // 2. Gemini classification: is this actually a person? Only for customer
+    //    photos (type === 'person'). Fails-open if network errors.
+    if (type === 'person') {
+      try {
+        const { data } = await verifyPersonPhoto(file);
+        if (data && data.isHuman === false) {
+          console.log('[photo] rejected by verifier:', data.reason);
+          setState('failed');
+          setError('not_a_person');
+          onValidFile?.(null);
+          window.datafast?.("customer_photo_rejected");
+          return;
+        }
+      } catch (err) {
+        console.warn('[photo] verify-person failed (allowing through):', err?.message);
+      }
+    }
+
+    setState('passed');
+    setError(null);
+    onValidFile?.(file);
+    window.datafast?.("customer_photo_accepted");
   };
 
   const retake = () => {

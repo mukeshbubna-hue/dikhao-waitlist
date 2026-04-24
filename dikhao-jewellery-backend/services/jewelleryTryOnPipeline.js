@@ -6,6 +6,9 @@ const { tryOnAccessoryWithRetry, accessorySupported } = require('./imageEdit');
 const { addBrand } = require('./imageBrand');
 
 const EXPIRY_DAYS = 5;
+// Hard ceiling on total try-on duration. If we can't finish in 60s, fail
+// explicitly rather than keep the user staring at a spinner for minutes.
+const PIPELINE_DEADLINE_MS = Number(process.env.TRYON_DEADLINE_MS || 60_000);
 
 async function withRetry(fn, maxAttempts = 3, delayMs = 2000) {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -44,7 +47,14 @@ function describeAxiosError(prefix, err) {
 async function processJewelleryTryOn(sessionId) {
   const tag = `[jwl-tryon ${sessionId}]`;
   const t0 = Date.now();
+  const deadline = t0 + PIPELINE_DEADLINE_MS;
   const step = (label) => console.log(`${tag} ${label.padEnd(28)} +${Date.now() - t0}ms`);
+  const checkDeadline = (where) => {
+    if (Date.now() > deadline) {
+      const over = Date.now() - deadline;
+      throw new Error(`PIPELINE_DEADLINE_EXCEEDED at ${where} (+${over}ms over ${PIPELINE_DEADLINE_MS}ms)`);
+    }
+  };
 
   step('start');
 
@@ -78,11 +88,13 @@ async function processJewelleryTryOn(sessionId) {
   step('status=processing');
 
   try {
+    checkDeadline('before image fetch');
     const [personImageRaw, productImageBuffer] = await Promise.all([
       fetchImage(personUrl),
       fetchImage(productUrl),
     ]);
     step(`images fetched (person=${personImageRaw.length}B, product=${productImageBuffer.length}B)`);
+    checkDeadline('after image fetch');
 
     // Clean customer background only if not pre-cleaned at registration.
     let personImageBuffer = personImageRaw;
@@ -99,10 +111,9 @@ async function processJewelleryTryOn(sessionId) {
       step('person already pre-cleaned — skipping rembg');
     }
 
+    checkDeadline('before model call');
     // All jewellery categories use Gemini with category-specific prompts.
-    // We retry Gemini on failure (up to 2 attempts × 60s = 120s max) — but we NEVER fall
-    // back to Vertex for accessory categories because Vertex is a clothing model and returns
-    // the image unchanged, which looks like a successful try-on to the user but is misleading.
+    // Retries are capped so overall pipeline stays under the 60s deadline.
     let resultBuffer;
     if (accessorySupported(category)) {
       const gStart = Date.now();
@@ -111,6 +122,7 @@ async function processJewelleryTryOn(sessionId) {
       );
       console.log(`${tag} gemini (${category}) completed in ${Date.now() - gStart}ms (result ${resultBuffer.length}B)`);
       step(`gemini ${category} done`);
+      checkDeadline('after model call');
     } else {
       // Unknown category (should never happen — all 6 categories are in ACCESSORY_PROMPTS).
       console.warn(`${tag} unknown category "${category}" — falling through to vertex`);
